@@ -37,7 +37,7 @@ public class ExampleInstrumentedTest {
                 //boolean exists = returning.exists();
                 //System.out.println(exists + "元素状态");
                 if(!returning.exists()){
-                    rt.exec("am force-stop com.cashtoutiao");
+                    mDevice.executeShellCommand("am force-stop com.cashtoutiao");
                     Thread.sleep(500);
                     rt.exec("am start -n com.cashtoutiao/.common.ui.SplashActivity");
                     Thread.sleep(1200);
@@ -45,7 +45,7 @@ public class ExampleInstrumentedTest {
                 }
             }catch (Exception e){
                 try {
-                    rt.exec("am force-stop com.cashtoutiao");
+                    mDevice.executeShellCommand("am force-stop com.cashtoutiao");
                     Thread.sleep(1000);
                     rt.exec("am start -n com.cashtoutiao/.common.ui.SplashActivity");
                 } catch (IOException e1) {
@@ -72,7 +72,7 @@ public class ExampleInstrumentedTest {
             //boolean exists = mDevice.findObject(new UiSelector().text("点击领取")).exists();
             //如果没有就重启activity
             if (!mDevice.findObject(new UiSelector().text("点击领取")).exists()){
-                rt.exec("am force-stop com.cashtoutiao");
+                mDevice.executeShellCommand("am force-stop com.cashtoutiao");
                 Thread.sleep(1000);
                 rt.exec("am start -n com.cashtoutiao/.common.ui.SplashActivity");
             }
@@ -80,5 +80,18 @@ public class ExampleInstrumentedTest {
             mDevice.swipe(500,1600,500,1200,50);
         }
         //adb shell am instrument -w -r   -e debug false -e class 'script.caixm.com.myapplication.ExampleInstrumentedTest#runTask' script.caixm.com.myapplication.test/android.support.test.runner.AndroidJUnitRunner
+    }
+
+    //@Test
+    public void test() throws IOException, InterruptedException {
+        UiDevice mDevice=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());//获取设备用例
+        /*boolean 点击领取 = mDevice.findObject(new UiSelector().text("点击领取")).exists();
+        Runtime.getRuntime().exec("am force-stop com.cashtoutiao");
+        System.exit(0);
+        System.out.println(点击领取+"元素状态");
+        Runtime.getRuntime().exec("am force-stop com.cashtoutiao");
+        Runtime.getRuntime().exec("am kill com.cashtoutiao");
+        System.out.println("task end");*/
+        mDevice.executeShellCommand("am force-stop com.cashtoutiao");
     }
 }
