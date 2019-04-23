@@ -1,16 +1,20 @@
 package script.caixm.com.myapplication;
 
 import android.content.Context;
+
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.logging.SimpleFormatter;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
@@ -22,6 +26,12 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    /**
+     * 惠头条脚本
+     * @throws InterruptedException
+     * @throws IOException
+     */
     @Test
     public void runTask() throws InterruptedException, IOException {
         UiDevice mDevice=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());//获取设备用例
@@ -42,6 +52,7 @@ public class ExampleInstrumentedTest {
                     rt.exec("am start -n com.cashtoutiao/.common.ui.SplashActivity");
                     Thread.sleep(1200);
                     mDevice.click(500,500);
+                    Thread.sleep(5000);//页面加载等待时间
                 }
             }catch (Exception e){
                 try {
@@ -56,7 +67,7 @@ public class ExampleInstrumentedTest {
                 mDevice.click(500,500);
                 e.printStackTrace();
             }
-            Thread.sleep(3000);//页面加载等待时间
+
             mi = 0;
             while(mi<40){
                 returning = mDevice.findObject(new UiSelector().text("返回"));
@@ -76,22 +87,21 @@ public class ExampleInstrumentedTest {
                 Thread.sleep(1000);
                 rt.exec("am start -n com.cashtoutiao/.common.ui.SplashActivity");
             }
-            Thread.sleep(500);
-            mDevice.swipe(500,1600,500,1200,50);
+            //Thread.sleep(500);
+            mDevice.swipe(500,1600,500,1100,50);
         }
         //adb shell am instrument -w -r   -e debug false -e class 'script.caixm.com.myapplication.ExampleInstrumentedTest#runTask' script.caixm.com.myapplication.test/android.support.test.runner.AndroidJUnitRunner
     }
 
-    //@Test
-    public void test() throws IOException, InterruptedException {
+    /**
+     * 聚头条脚本
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws UiObjectNotFoundException
+     */
+    @Test
+    public void test() throws IOException, InterruptedException, UiObjectNotFoundException {
         UiDevice mDevice=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());//获取设备用例
-        /*boolean 点击领取 = mDevice.findObject(new UiSelector().text("点击领取")).exists();
-        Runtime.getRuntime().exec("am force-stop com.cashtoutiao");
-        System.exit(0);
-        System.out.println(点击领取+"元素状态");
-        Runtime.getRuntime().exec("am force-stop com.cashtoutiao");
-        Runtime.getRuntime().exec("am kill com.cashtoutiao");
-        System.out.println("task end");*/
-        mDevice.executeShellCommand("am force-stop com.cashtoutiao");
+
     }
 }
